@@ -18,5 +18,9 @@ class Cliente(models.Model):
 
 class Factura(models.Model):
     Cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
-    productos = models.ManyToManyField(Producto)
+#    productos = models.ManyToManyField(Producto)
     fechadelacompra = models.DateTimeField()
+
+class ProductoCantidad(models.Model):
+    cantidad = models.CharField(max_length=10)
+    productos = models.ForeignKey(Producto)

@@ -5,7 +5,6 @@ from django.db import models
 class dia(models.Model):
     fechadelacompra = models.DateTimeField()
 
-
 class Productos(models.Model):
     tipodeproducto = models.CharField(max_length=15)
     producto = models.CharField(max_length=15)
@@ -16,10 +15,8 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=15)
     apellido = models.CharField(max_length=15)
     dni = models.CharField(max_length=15)
-    domicilio = models.CharField(max_length=15)
+    domicilio = models.CharField(max_length=25)
 
 class Factura(models.Model):
-    dia = models.CharField(max_length=15)
-    Productos = models.CharField(max_length=15)
-    Cliente = models.CharField(max_length=15)
-    
+    Productos = models.ForeingKey('Productos', on_delete=models.CASCADE)
+    Cliente = models.ForeingKey('CLiente', on_delete=models.CASCADE)

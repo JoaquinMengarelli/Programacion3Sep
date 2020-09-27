@@ -2,9 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class dia(models.Model):
-    fechadelacompra = models.DateTimeField()
-
 class Producto(models.Model):
     tipodeproducto = models.CharField(max_length=15)
     producto = models.CharField(max_length=15)
@@ -22,3 +19,4 @@ class Cliente(models.Model):
 class Factura(models.Model):
     Cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
     productos = models.ManyToManyField(Producto)
+    fechadelacompra = models.DateTimeField()

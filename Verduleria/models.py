@@ -23,4 +23,4 @@ class Factura(models.Model):
 
 class ProductoCantidad(models.Model):
     cantidad = models.CharField(max_length=10)
-    productos = models.ForeignKey(Producto)
+    productos = models.ForeignKey('Producto', on_delete=models.CASCADE)

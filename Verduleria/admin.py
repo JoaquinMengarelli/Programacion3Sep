@@ -7,18 +7,23 @@ from .models import ProductoCantidad
 class ProductoAdmin(admin.ModelAdmin):
     list_filter = ('tipodeproducto',)
 
+class ClienteAdmin(admin.ModelAdmin):
+     search_fields = ['nombre', 'apellido']
+     list_display = ['nombre','apellido', 'domicilio', 'dni']
 
-#admin.site.register(ProductoCantidad)
+
+
 
 class ProductoCantidadInline(admin.TabularInline):
     model = ProductoCantidad
 
 class FacturaAdmin(admin.ModelAdmin):
     inlines = [ProductoCantidadInline]
-#    list_display = ['cantidad', 'productos']
+    search_fields = ['cliente']
+    list_display = ['fechadelacompra','cliente']
 
 admin.site.register(Factura, FacturaAdmin)
 #admin.site.register(Factura,FacturaAdmin)
 admin.site.register(Producto, ProductoAdmin)
-admin.site.register(Cliente)
+admin.site.register(Cliente, ClienteAdmin)
 #admin.site.register(ProductoCantidad)

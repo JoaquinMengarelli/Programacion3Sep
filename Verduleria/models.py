@@ -23,13 +23,11 @@ class Cliente(models.Model):
         return self.nombre
 
 
-
 class Factura(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 #    productos = models.ManyToManyField(Producto)
     fechadelacompra = models.DateTimeField()
     #productocantidad = models.ManyToManyField(ProductoCantidad)
-    #totalapagar =
     ordering = ('fechadelacompra',)
 
     def __str__(self):
@@ -40,3 +38,7 @@ class ProductoCantidad(models.Model):
     cantidad = models.SmallIntegerField()
     productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+
+class SumaTotal(models.Model):
+    precio = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    

@@ -3,10 +3,14 @@ from django.db import models
 # Create your models here.
 
 class Producto(models.Model):
-    tipodeproducto = models.CharField(max_length=15)
-    producto = models.CharField(max_length=15)
-    cantidadXkilo = models.SmallIntegerField()
+    TIPO = (('1', 'Fruta'),
+            ('2', 'Verdura'))
+    tipodeproducto = models.CharField(max_length=1, choices=TIPO)
+    nombre = models.CharField(max_length=15)
     precioXkilo = models.SmallIntegerField()
+
+    def __str__(self):
+        return self.nombre
 
 
 class Cliente(models.Model):
@@ -18,13 +22,21 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nombre
 
-class ProductoCantidad(models.Model):
-    cantidad = models.SmallIntegerField()
-    productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
 
 class Factura(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 #    productos = models.ManyToManyField(Producto)
     fechadelacompra = models.DateTimeField()
-    productocantidad = models.ManyToManyField(Producto)
+    #productocantidad = models.ManyToManyField(ProductoCantidad)
+    #totalapagar =
     ordering = ('fechadelacompra',)
+
+    def __str__(self):
+        fecha = self.fechadelacompra.strftime('%d/%m/%Y')
+        return fecha
+
+class ProductoCantidad(models.Model):
+    cantidad = models.SmallIntegerField()
+    productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    factura = models.ForeignKey(Factura, on_delete=models.CASCADE)

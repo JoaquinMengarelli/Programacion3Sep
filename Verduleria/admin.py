@@ -4,6 +4,9 @@ from .models import Cliente
 from .models import Producto
 from .models import ProductoCantidad
 # Register your models here.
+class ProductoAdmin(admin.ModelAdmin):
+    list_filter = ('tipodeproducto',)
+
 
 #admin.site.register(ProductoCantidad)
 
@@ -12,9 +15,10 @@ class ProductoCantidadInline(admin.TabularInline):
 
 class FacturaAdmin(admin.ModelAdmin):
     inlines = [ProductoCantidadInline]
-    list_display= ('fechadelacompra', 'cliente')
+#    list_display = ['cantidad', 'productos']
 
-admin.site.register(Factura)
+admin.site.register(Factura, FacturaAdmin)
 #admin.site.register(Factura,FacturaAdmin)
-admin.site.register(Producto)
+admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Cliente)
+#admin.site.register(ProductoCantidad)

@@ -19,8 +19,6 @@ from django.urls import path
 
 urlpatterns = [
     path('', admin.site.urls),
-    path('/', include('jet.urls', 'jet')),
-    #path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-    #path('report/', views.ReportePersonasPDF.as_view(), name="producto.pdf" )
+    path('jet/', include('jet.urls', 'jet')),
     ]
     #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

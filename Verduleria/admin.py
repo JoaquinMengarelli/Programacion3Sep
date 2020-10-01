@@ -20,7 +20,11 @@ class ProductoCantidadInline(admin.TabularInline):
 class FacturaAdmin(admin.ModelAdmin):
     inlines = [ProductoCantidadInline]
     search_fields = ['cliente']
-    list_display = ['fechadelacompra','cliente']
+    list_display = ['fechadelacompra','cliente', 'preciototal']
+    ordering = ('fechadelacompra',)
+
+    def post_save(self, instance):
+        instance.update_total()
 
 admin.site.register(Factura, FacturaAdmin)
 #admin.site.register(Factura,FacturaAdmin)

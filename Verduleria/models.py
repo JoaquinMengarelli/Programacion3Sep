@@ -28,7 +28,10 @@ class Factura(models.Model):
 #    productos = models.ManyToManyField(Producto)
     fechadelacompra = models.DateTimeField()
     #productocantidad = models.ManyToManyField(ProductoCantidad)
-    ordering = ('fechadelacompra',)
+    preciototal = models.CharField(max_length =5000, editable = False, default = 0)
+#    ordering = ('fechadelacompra',)
+    def update_total(self):
+        self.preciototal = sum([x.cantidad for x in self.productocantidad_set.all()])
 
     def __str__(self):
         fecha = self.fechadelacompra.strftime('%d/%m/%Y')
@@ -39,6 +42,3 @@ class ProductoCantidad(models.Model):
     productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
 
-class SumaTotal(models.Model):
-    precio = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    

@@ -5,7 +5,8 @@ from .models import Producto
 from .models import ProductoCantidad
 # Register your models here.
 class ProductoAdmin(admin.ModelAdmin):
-    list_filter = ('tipodeproducto',)
+    list_filter = ['tipodeproducto']
+    list_display = ['nombre','precioXkilo']
 
 class ClienteAdmin(admin.ModelAdmin):
      search_fields = ['nombre', 'apellido']

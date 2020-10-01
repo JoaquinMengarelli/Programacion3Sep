@@ -7,7 +7,7 @@ class Producto(models.Model):
             ('2', 'Verdura'))
     tipodeproducto = models.CharField(max_length=1, choices=TIPO)
     nombre = models.CharField(max_length=15)
-    precioXkilo = models.SmallIntegerField()
+    precioXkilo = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.nombre
@@ -28,10 +28,15 @@ class Factura(models.Model):
 #    productos = models.ManyToManyField(Producto)
     fechadelacompra = models.DateTimeField()
     #productocantidad = models.ManyToManyField(ProductoCantidad)
-    preciototal = models.CharField(max_length =5000, editable = False, default = 0)
+    preciototal = models.DecimalField(max_digits=5, decimal_places=2, editable=False, null=True)
 #    ordering = ('fechadelacompra',)
-    def update_total(self):
-        self.preciototal = sum([x.cantidad for x in self.productocantidad_set.all()])
+
+    def save(self, *args, **kwargs):
+        self.preciototal = sum([x.cantidad*x.productos.precioXkilo for x in self.productocantidad_set.all()])
+        super().save(*args, **kwargs)
+
+        #    def update_total(self):
+ #       self.preciototal = sum([x.cantidad for x in self.productocantidad_set.all()])
 
     def __str__(self):
         fecha = self.fechadelacompra.strftime('%d/%m/%Y')

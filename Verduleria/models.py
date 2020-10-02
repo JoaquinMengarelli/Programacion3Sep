@@ -31,10 +31,23 @@ class Factura(models.Model):
     preciototal = models.DecimalField(max_digits=5, decimal_places=2, editable=False, null=True)
 #    ordering = ('fechadelacompra',)
 
+    #def save(self, *args, **kwargs):
+     #   sum = 0
+      #  for x in self.productocantidad_set.all():
+       #     sum += cantidad*x.productos.precioXkilo
+        #    self.preciototal#.super().save(*args, **kwargs) = sum
+        #super().save(*args, **kwargs)
+
+            
+        #super().save(*args, **kwargs)
     def save(self, *args, **kwargs):
         self.preciototal = sum([x.cantidad*x.productos.precioXkilo for x in self.productocantidad_set.all()])
         super().save(*args, **kwargs)
 
+    #def save(self, *args, **kwargs):
+        #super(Factura, self).save(*args, **kwargs)
+        #precio_total=sum([x.cantidad*x.productos.precioXkilo for x in self.productocantidad_set.all()])   
+       # super(Factura, self).save(*args, **kwargs)
         #    def update_total(self):
  #       self.preciototal = sum([x.cantidad for x in self.productocantidad_set.all()])
 

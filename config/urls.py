@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
+from Verduleria import views
+
 
 urlpatterns = [
     path('', admin.site.urls),
     path('jet/', include('jet.urls', 'jet')),
+    path('home/', views.home, name='Verduleia-home'),
+    path('about/', views.about, name='Verduleria-about'),
     ]
     #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

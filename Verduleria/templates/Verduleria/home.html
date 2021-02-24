@@ -1,0 +1,11 @@
+{% extends "Verduleria/base.html" %}
+{% block main %}
+
+{% for f in facturas %}
+
+<div class="factura">
+  <h3>{{f}} - <em>{{f.cliente.nombre}}</em>: ${{f.preciototal}}</h3>
+  <p><a href={% url 'Verduleria-detalle' pk=f.pk %}>Ver detalle</a></p>
+</div>
+{% endfor %}
+{% endblock %}

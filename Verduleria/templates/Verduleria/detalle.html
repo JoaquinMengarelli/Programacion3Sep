@@ -1,0 +1,16 @@
+{% extends "Verduleria/base.html" %}
+{% block main %}
+{% if not productos %}
+{% endif %}
+<h4>Fecha:</h4>
+<p> {{factura}}</p>
+<h4>Cliente:</h4>
+<p> {{factura.cliente.nombre}}</p>
+<h4>Productos:</h4>
+<ul>
+{% for prod in productos %}
+<li><p>{{ prod.productos.nombre }} - ${{prod.productos.precioXkilo}} por kilo</p></li>
+{% endfor %}
+</ul>
+<h4>Total: {{ factura.preciototal }}</h4>
+{% endblock %}
